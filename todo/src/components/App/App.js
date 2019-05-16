@@ -12,9 +12,9 @@ class App extends React.Component {
     this.maxId = 100;
     this.state = {
       todoData: [
-        { important:false, label:"task 1", id:1},
-        { important:true, label:"task 2", id:2},
-        { important:false, label:"task 3", id:3}
+        { important:false, label:"task 1", id:1, done: false},
+        { important:false, label:"task 2", id:2, done: false},
+        { important:false, label:"task 3", id:3, done: false}
       ]
     };
     this.deleteItem = (id) => {
@@ -25,12 +25,33 @@ class App extends React.Component {
     }
     this.addItem = () => {
       this.setState((state) =>{
+
         let text = document.querySelector(".addform input").value;
         document.querySelector(".addform input").value = "";
 
-        let item = { important:false, label:text, id: this.maxId++};
+        let item = { important:false, label:text, id: this.maxId++, done: false};
         let addedState = [...state.todoData].concat(item);
         return {  todoData: addedState};
+      });
+    }
+    this.toogleDone = (id) => {
+      this.setState((state) =>{
+        let index = state.todoData.findIndex(el => el.id === id);
+        let elem = Object.assign({}, state.todoData[index]);
+        elem.done = !elem.done;
+        let addedState = [...state.todoData.slice( 0, index), 
+                      elem, 
+                      ...state.todoData.slice(index+1)]
+        return {  todoData: addedState };
+      });
+    }
+    this.toogleImportant = (id) => {
+      this.setState((state) =>{
+        let index = state.todoData.findIndex(el => el.id === id);
+        let elem = Object.assign({}, state.todoData[index]);
+        elem.important = !elem.important;
+        let addedState = [...state.todoData.slice(0,index ), elem, ...state.todoData.slice(index+1)]
+        return {  todoData: addedState };
       });
     }
   }
@@ -47,7 +68,9 @@ class App extends React.Component {
         </div>
         <AppList 
           todoData={ this.state.todoData } 
-          deleted={ this.deleteItem }
+          deleteItem={ this.deleteItem }
+          toogleDone={ this.toogleDone }
+          toogleImportant={ this.toogleImportant }
         />
       </div>
     );

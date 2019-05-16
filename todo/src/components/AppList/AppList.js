@@ -6,8 +6,11 @@ const AppList = (props) => {
     return <ListComponent 
       label={el.label}
       important={el.important}
+      done={el.done}
       key={el.id}
-      deleted={() => props.deleted(el.id)}
+      deleteItem={() => props.deleteItem(el.id)}
+      toogleDone={() => props.toogleDone(el.id)}
+      toogleImportant={() => props.toogleImportant(el.id)}
     />
   })
   return (
