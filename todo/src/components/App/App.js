@@ -2,12 +2,14 @@ import React from 'react';
 
 import AppHeader from '../AppHeader/AppHeader';
 import AppFilterButtons from '../AppFilterButtons/AppFilterButtons';
+import AppAddItem from '../AppAddItem/AppAddItem';
 import AppFilterSearch from '../AppFilterSearch/AppFilterSearch';
 import AppList from '../AppList/AppList';
 
 class App extends React.Component {
   constructor() {
     super();
+    this.maxId = 100;
     this.state = {
       todoData: [
         { important:false, label:"task 1", id:1},
@@ -21,6 +23,16 @@ class App extends React.Component {
         return {  todoData: filtered}
       });
     }
+    this.addItem = () => {
+      this.setState((state) =>{
+        let text = document.querySelector(".addform input").value;
+        document.querySelector(".addform input").value = "";
+
+        let item = { important:false, label:text, id: this.maxId++};
+        let addedState = [...state.todoData].concat(item);
+        return {  todoData: addedState};
+      });
+    }
   }
   render() {
     return (
@@ -28,6 +40,9 @@ class App extends React.Component {
         <AppHeader />
         <div className="d-flex justify-content-between align-items-bottom mb-2">
           <AppFilterSearch />
+          <AppAddItem 
+            addItem={ this.addItem }
+          />
           <AppFilterButtons />
         </div>
         <AppList 
