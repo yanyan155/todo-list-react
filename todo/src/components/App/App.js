@@ -17,12 +17,14 @@ class App extends React.Component {
         { important:false, label:"task 3", id:3, done: false}
       ]
     };
+
     this.deleteItem = (id) => {
       this.setState((state) =>{
         let filtered = state.todoData.filter(el => el.id !== id);
         return {  todoData: filtered}
       });
-    }
+    };
+
     this.addItem = () => {
       this.setState((state) =>{
 
@@ -33,32 +35,35 @@ class App extends React.Component {
         let addedState = [...state.todoData].concat(item);
         return {  todoData: addedState};
       });
-    }
+    };
+
     this.toogleDone = (id) => {
       this.setState((state) =>{
-        let index = state.todoData.findIndex(el => el.id === id);
-        let elem = Object.assign({}, state.todoData[index]);
-        elem.done = !elem.done;
-        let addedState = [...state.todoData.slice( 0, index), 
-                      elem, 
-                      ...state.todoData.slice(index+1)]
-        return {  todoData: addedState };
+        return this.toogleProperty(state.todoData, id, 'done');
       });
-    }
+    };
+
     this.toogleImportant = (id) => {
       this.setState((state) =>{
-        let index = state.todoData.findIndex(el => el.id === id);
-        let elem = Object.assign({}, state.todoData[index]);
-        elem.important = !elem.important;
-        let addedState = [...state.todoData.slice(0,index ), elem, ...state.todoData.slice(index+1)]
-        return {  todoData: addedState };
+        return this.toogleProperty(state.todoData, id, 'important');
       });
+    }
+
+    this.toogleProperty = (arr, id, property) => {
+
+      let index = arr.findIndex(el => el.id === id);
+      let elem = Object.assign({}, arr[index]);
+      elem[property] = !elem[property];
+      let addedState = [...arr.slice(0,index ), elem, ...arr.slice(index+1)]
+      return {  todoData: addedState };
     }
   }
   render() {
     return (
       <div>
-        <AppHeader />
+        <AppHeader 
+          todoData={ this.state.todoData }
+        />
         <div className="d-flex justify-content-between align-items-bottom mb-2">
           <AppFilterSearch />
           <AppAddItem 
@@ -67,7 +72,7 @@ class App extends React.Component {
           <AppFilterButtons />
         </div>
         <AppList 
-          todoData={ this.state.todoData } 
+          todoData={ this.state.todoData }
           deleteItem={ this.deleteItem }
           toogleDone={ this.toogleDone }
           toogleImportant={ this.toogleImportant }
