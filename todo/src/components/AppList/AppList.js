@@ -7,6 +7,7 @@ const AppList = (props) => {
       label={el.label}
       important={el.important}
       key={el.id}
+      deleted={() => props.deleted(el.id)}
     />
   })
   return (

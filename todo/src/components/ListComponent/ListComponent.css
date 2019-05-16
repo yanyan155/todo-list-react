@@ -1,6 +1,15 @@
 li.list-group-item {
   padding-top: 6px;
   padding-bottom: 6px;
+} 
+.todo-text {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+span.done {
+  text-decoration: line-through;
 }
 button.fa-trash-o{
   width: 31px;
