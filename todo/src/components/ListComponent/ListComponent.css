@@ -1,0 +1,16 @@
+li.list-group-item {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+button.fa-trash-o{
+  width: 31px;
+  height: 30px;
+  padding: 0px;
+  padding-right: 1px;
+}
+button.fa-trash-o:hover{
+  width: 31px;
+  height: 30px;
+  padding: 0px;
+  padding-right: 1px;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanyan155/todo-list-react.git"
+  },
+  "author": "Yanis Machkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yanyan155/todo-list-react/issues"
+  },
+  "homepage": "https://github.com/yanyan155/todo-list-react#readme",
+  "dependencies": {}
+}
