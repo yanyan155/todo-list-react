@@ -3,7 +3,7 @@ import ListComponent from '../ListComponent/ListComponent';
 
 const AppList = (props) => {
   let components = props.todoData.map(el => {
-    return <ListComponent 
+    return <ListComponent
       label={el.label}
       important={el.important}
       done={el.done}

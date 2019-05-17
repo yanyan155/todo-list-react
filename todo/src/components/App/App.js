@@ -12,9 +12,9 @@ class App extends React.Component {
     this.maxId = 100;
     this.state = {
       todoData: [
-        { important:false, label:"task 1", id:1, done: false},
-        { important:false, label:"task 2", id:2, done: false},
-        { important:false, label:"task 3", id:3, done: false}
+        { important:false, label:"value 1", id:1, done: false},
+        { important:false, label:"mark 2", id:2, done: false},
+        { important:false, label:"score 3", id:3, done: false}
       ]
     };
 
@@ -25,12 +25,8 @@ class App extends React.Component {
       });
     };
 
-    this.addItem = () => {
+    this.addItem = (text) => {
       this.setState((state) =>{
-
-        let text = document.querySelector(".addform input").value;
-        document.querySelector(".addform input").value = "";
-
         let item = { important:false, label:text, id: this.maxId++, done: false};
         let addedState = [...state.todoData].concat(item);
         return {  todoData: addedState};
