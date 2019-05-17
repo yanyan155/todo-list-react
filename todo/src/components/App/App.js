@@ -16,8 +16,8 @@ class App extends React.Component {
         { important:false, label:"mark 2", id:2, done: false},
         { important:false, label:"score 3", id:3, done: false}
       ],
-      searchString: ''
-      /* searchValue */
+      searchString: '',
+      searchButtonID: 'all-find'
     };
 
     this.deleteItem = (id) => {
@@ -56,16 +56,25 @@ class App extends React.Component {
       return {  todoData: addedState };
     }
 
-    this.updateSearchString = (string = '') => {
+    this.updateSearchString = (string = 'all-find') => {
       this.setState({'searchString': string});
+    }
+    this.updateSearchButton = (id = '') => {
+      this.setState({'searchButtonID': id});
     }
 
     this.searchFilter = () => {
       let arr = this.state.todoData.filter(el => el.label.toLowerCase().match(this.state.searchString.toLowerCase()));
+
+      if(this.state.searchButtonID === 'active-find') {
+        arr = arr.filter(el => el.done);
+      } else if(this.state.searchButtonID === 'done-find') {
+        arr = arr.filter(el => !el.done);
+      }
       return arr;
     }
-
   }
+
   render() {
     return (
       <div>
@@ -79,7 +88,10 @@ class App extends React.Component {
           <AppAddItem 
             addItem={ this.addItem }
           />
-          <AppFilterButtons />
+          <AppFilterButtons 
+            updateSearchButton={ this.updateSearchButton }
+            searchButtonID={ this.state.searchButtonID }
+          />
         </div>
         <AppList 
           todoData={ this.searchFilter() }
@@ -93,5 +105,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// AppFilterButtons -- add buttons
