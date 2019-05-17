@@ -15,7 +15,9 @@ class App extends React.Component {
         { important:false, label:"value 1", id:1, done: false},
         { important:false, label:"mark 2", id:2, done: false},
         { important:false, label:"score 3", id:3, done: false}
-      ]
+      ],
+      searchString: ''
+      /* searchValue */
     };
 
     this.deleteItem = (id) => {
@@ -53,6 +55,16 @@ class App extends React.Component {
       let addedState = [...arr.slice(0,index ), elem, ...arr.slice(index+1)]
       return {  todoData: addedState };
     }
+
+    this.updateSearchString = (string = '') => {
+      this.setState({'searchString': string});
+    }
+
+    this.searchFilter = () => {
+      let arr = this.state.todoData.filter(el => el.label.toLowerCase().match(this.state.searchString.toLowerCase()));
+      return arr;
+    }
+
   }
   render() {
     return (
@@ -61,14 +73,16 @@ class App extends React.Component {
           todoData={ this.state.todoData }
         />
         <div className="d-flex justify-content-between align-items-bottom mb-2">
-          <AppFilterSearch />
+          <AppFilterSearch 
+            updateSearchString={ this.updateSearchString }
+          />
           <AppAddItem 
             addItem={ this.addItem }
           />
           <AppFilterButtons />
         </div>
         <AppList 
-          todoData={ this.state.todoData }
+          todoData={ this.searchFilter() }
           deleteItem={ this.deleteItem }
           toogleDone={ this.toogleDone }
           toogleImportant={ this.toogleImportant }
@@ -79,3 +93,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+// AppFilterButtons -- add buttons
